@@ -8,11 +8,18 @@ class App extends Component {
     super(props);
     this.state = {
       todos: [
-        { description: 'Walk the cat', isCompleted: true },
+        { description: 'Walk the cat', isCompleted: false },
         { description: 'Throw the dishes away', isCompleted: false },
         { description: 'Buy new dishes', isCompleted: false }
       ]
     };
+  }
+
+  toggleComplete(index) {
+    const todos = this.state.todos.slice();
+    const todo = todos[index];
+    todo.isCompleted = todo.isCompleted ? false : true;
+    this.setState({ todos: todos });
   }
 
   render() {
@@ -20,7 +27,7 @@ class App extends Component {
       <div className="App">
         <ul>
           { this.state.todos.map( (todo,index) =>
-            <ToDo key= {index} description= {todo.description} isCompleted= {todo.isCompleted}/>
+            <ToDo key= {index} description= {todo.description} isCompleted= {todo.isCompleted} toggleComplete={ () => this.toggleComplete(index) } />
           )}
         </ul>
       </div>
